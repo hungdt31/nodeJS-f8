@@ -1,7 +1,5 @@
 h1 {
-  color: #555;
-}
-
-h1:hover {
-  color: aqua;
-}
+  color: #f03524;
+  font-weight: 700; }
+  h1:hover {
+    color: #da9054; }
