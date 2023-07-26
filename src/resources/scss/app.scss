@@ -1,0 +1,7 @@
+@import 'varibles.scss';
+h1{
+    color: $red-color;
+    &:hover{
+        color: aqua;
+    }
+}

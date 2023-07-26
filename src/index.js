@@ -9,6 +9,9 @@ const port = process.env.PORT || 3000;
 // HTTP logger
 app.use(morgan('combined'));
 
+// static file
+app.use(express.static(path.join(__dirname,'public')))
+
 // template engine
 app.engine('hbs', handlebars.engine({
     extname:'.hbs'

@@ -1,0 +1,7 @@
+h1 {
+  color: #555;
+}
+
+h1:hover {
+  color: aqua;
+}
