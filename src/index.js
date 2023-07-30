@@ -4,8 +4,10 @@ const handlebars = require('express-handlebars');
 const app = express();
 const path = require('path');
 const route = require('./routes');
+const db = require('./config/db');
 require('dotenv').config();
 const port = process.env.PORT || 3000;
+
 app.use(express.urlencoded({
     extended: true
 }))
@@ -15,6 +17,9 @@ app.use(express.json())
 
 // static file
 app.use(express.static(path.join(__dirname,'public')))
+
+// Connect to DB
+db.connect();
 
 // template engine
 app.engine('hbs', handlebars.engine({
@@ -46,3 +51,4 @@ app.listen(port,()=>console.log(`Example app listening at http://localhost:${por
 // mô hình MVC
 // host: nơi để lưu trữ
 // local host: host nằm trên máy tính cá nhân
+// mongoose: dùng để connect giữa mongoDB và express
