@@ -13,7 +13,7 @@ app.use(express.urlencoded({
 }))
 app.use(express.json())
 // HTTP logger
-// app.use(morgan('combined'));
+app.use(morgan('combined'));
 
 // static file
 app.use(express.static(path.join(__dirname,'public')))

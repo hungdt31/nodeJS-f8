@@ -1,18 +1,23 @@
-const Course = require('../../models/Course');
-
+const Course = require("../../models/Course");
+const {multipleMongooseToObject, mongooseToObject} = require('../../util/mongoose')
 class SiteController {
     // [GET] /
-    async index(req, res){
+    async index(req, res) {
         try {
-            res.json(await Course.find({}))
-        } catch (error) {
-            res.status(400).json({ error: "Fail to get Course" })
+            await Course.find({}).then((courses) => {
+                courses = multipleMongooseToObject(courses)
+                res.render("home", {
+                    courses,
+                });
+            });
+        } 
+        catch (error) {
+            res.status(400).json({ error: "Fail to get Course" });
         }
-        // res.render('home')
     }
     // [GET] /search
-    search(req, res){
-        res.render('search');
+    search(req, res) {
+        res.render("search");
     }
 }
-module.exports = new SiteController
+module.exports = new SiteController();
