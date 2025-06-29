@@ -64,7 +64,7 @@ Dưới đây là cấu trúc các bài học và dự án được tổ chức 
 
 ## 👤 Tác giả
 
--   **Họ và tên:** [Tên của bạn]
+-   **Họ và tên:** Đoàn Trí Hùng
 -   **GitHub:** [@hungdt31](https://github.com/hungdt31)
 
 Cảm ơn F8 đã tạo ra một khóa học chất lượng!
