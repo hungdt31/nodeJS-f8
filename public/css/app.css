@@ -1,0 +1,9 @@
+h1 {
+  color: rgb(0, 128, 128);
+  font-weight: 700;
+}
+h1:hover {
+  opacity: 0.7;
+}
+
+/*# sourceMappingURL=app.css.map */

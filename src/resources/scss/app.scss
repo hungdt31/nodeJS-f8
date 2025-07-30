@@ -1,6 +1,6 @@
-@import 'varibles.scss';
+@use 'varibles.scss';
 h1{
-    color: $red-color;
+    color: varibles.$cyan-color;
     font-weight: 700;
     &:hover{
         opacity: 0.7;

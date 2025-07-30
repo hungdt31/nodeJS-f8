@@ -5,6 +5,8 @@ const app = express();
 const path = require('path');
 const route = require('./routes');
 const db = require('./config/db');
+const methouOverride = require('method-override')
+
 require('dotenv').config();
 const port = process.env.PORT || 3000;
 
@@ -12,18 +14,21 @@ app.use(express.urlencoded({
     extended: true
 }))
 app.use(express.json())
+app.use(methouOverride('_method'))
 // HTTP logger
 app.use(morgan('combined'));
 
 // static file
-app.use(express.static(path.join(__dirname,'public')))
+app.use(express.static(path.join(__dirname,'../public')))
 
-// Connect to DB
-db.connect();
+
 
 // template engine
 app.engine('hbs', handlebars.engine({
-    extname:'.hbs'
+    extname:'.hbs',
+    helpers: {
+        sum: (a, b) => a + b,
+    }
 }));
 app.set('view engine', 'hbs');
 app.set('views', path.join(__dirname,'resources/views'));
@@ -32,8 +37,11 @@ app.set('views', path.join(__dirname,'resources/views'));
 // create Routes -> Dispatcher
 // action --- Dispatcher ---> Function handler
 
+
 // Routes init
 route(app)
+// Connect to DB
+db.connect();
 
 
 app.listen(port,()=>console.log(`Example app listening at http://localhost:${port}`))

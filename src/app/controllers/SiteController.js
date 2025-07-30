@@ -6,6 +6,7 @@ class SiteController {
         try {
             await Course.find({}).then((courses) => {
                 courses = multipleMongooseToObject(courses)
+                console.log(courses)
                 res.render("home", {
                     courses,
                 });

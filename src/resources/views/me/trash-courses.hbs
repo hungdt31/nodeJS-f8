@@ -1,0 +1,106 @@
+<div class="mt-4">
+    <div>
+        <a href="/me/stored/courses" class="text-decoration-none"></i> <i class="text-monospace">Danh sách khóa
+                học</i></a>
+        <h3>Khóa học đã xóa</h3>
+    </div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Ảnh</th>
+                <th scope="col">Tên khóa học</th>
+                <th scope="col">Mô tả</th>
+                <th scope="col" colspan="2">Thời gian xóa</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each courses}}
+            <tr>
+                <th scope="row">{{sum @index 1}}</th>
+                <td><img width="200px" height="150px" src={{this.image}}></td>
+                <td>{{this.name}}</td>
+                <td>{{this.description}}</td>
+                <td>{{this.deletedAt}}</td>
+                <td>
+                    <a href="" class="mt-4 btn btn-warning btn-restore" data-id="{{this._id}}">Khôi phục</a>
+                    <button type="button" class="mt-4 btn btn-danger" data-bs-toggle="modal"
+                        data-bs-target="#exampleModal" data-bs-id="{{this._id}}" data-bs-title="{{this.name}}">Xóa vĩnh
+                        viễn</button>
+                </td>
+            </tr>
+            {{else}}
+            <tr>
+                <td colspan="5" class="text-center">
+                    Thùng rác trống.
+                </td>
+            </tr>
+            {{/each}}
+        </tbody>
+    </table>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel"><span>New message to </span><span
+                        class="text-info title"></span></h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>Bạn có chắc chắn xóa vĩnh viễn khóa học này ?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-info" data-bs-dismiss="modal">Hủy</button>
+                <button type="button" class="btn btn-danger" id="delete-course">Xóa bỏ</button>
+            </div>
+        </div>
+    </div>
+</div>
+<form method="POST" role="form" id="restore-course-form">
+</form>
+<form method="POST" role="form" id="delete-course-form">
+</form>
+<script>
+    var idInfo
+    var exampleModal = document.getElementById('exampleModal')
+    var restoreForm = document.getElementById('restore-course-form')
+    var deleteForm = document.getElementById('delete-course-form')
+    var restoreBtns = document.querySelectorAll(
+        '.btn-restore'
+    )
+    exampleModal.addEventListener('show.bs.modal', function (event) {
+        // Button that triggered the modal
+        var button = event.relatedTarget
+        // Extract info from data-bs-* attributes
+        var recipient = button.getAttribute('data-bs-title')
+        idInfo = button.getAttribute('data-bs-id')
+        // If necessary, you could initiate an AJAX request here
+        // and then do the updating in a callback.
+        //
+        // Update the modal's content.
+        var modalTitle = exampleModal.querySelector('.modal-title .title')
+
+        modalTitle.textContent = recipient
+    })
+    var btnDeleteCourse = document.getElementById('delete-course')
+    btnDeleteCourse.onclick = function () {
+        deleteForm.action = '/courses/' + idInfo + '/force?_method=DELETE'
+        deleteForm.submit()
+    }
+    restoreBtns.forEach(function (restoreBtn) {
+        restoreBtn.addEventListener('click', function (e) {
+            e.preventDefault()
+            const dataId = restoreBtn.getAttribute('data-id')
+            restoreForm.action = '/courses/' + dataId + '/restore?_method=PATCH'
+            restoreForm.submit()
+        });
+    })
+</script>
+<!--
+    1. Create -> POST
+    2. Update -> PUT, PATCH
+    3. Delete -> DELETE(soft, restore, force delete)
+    4. Read -> GET
+-->

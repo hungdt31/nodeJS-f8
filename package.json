@@ -4,7 +4,7 @@
   "description": "\"tri hung learn NodeJS\"",
   "main": "src/index.js",
   "scripts": {
-    "watch": "node-sass -w src/resources/scss/ -o src/public/css/",
+    "build-css": "sass src/resources/scss/app.scss public/css/app.css",
     "start": "nodemon src/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -27,14 +27,18 @@
     "dotenv": "^16.3.1",
     "express": "^4.18.2",
     "express-handlebars": "^7.0.7",
-    "mongoose": "^7.4.1"
+    "method-override": "^3.0.0",
+    "mongoose": "^7.4.1",
+    "mongoose-delete": "^1.0.1",
+    "mongoose-slug-generator": "^1.0.4",
+    "mongoose-slug-updater": "^3.3.0"
   },
   "devDependencies": {
     "husky": "^8.0.3",
     "lint-staged": "^13.2.3",
     "morgan": "^1.10.0",
-    "node-sass": "^9.0.0",
     "nodemon": "^3.0.1",
-    "prettier": "^3.0.0"
+    "prettier": "^3.0.0",
+    "sass": "^1.89.2"
   }
 }
